@@ -1,0 +1,10 @@
+{
+  "//": "Test-tree tsconfig. Its presence stops vite/tsconfck from walking up to the root tsconfig.json and resolving its project references (which include packages built by sibling phase-1 plans). The integration suites here are transpiled, not project-referenced.",
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["**/*.ts"]
+}

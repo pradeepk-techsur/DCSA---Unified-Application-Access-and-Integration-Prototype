@@ -13,6 +13,7 @@
   "scripts": {
     "build": "tsc -b",
     "test": "vitest run",
+    "test:isolation": "vitest run tests/integration/isolation.spec.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "migrate": "node packages/migrate/dist/cli.js up",
