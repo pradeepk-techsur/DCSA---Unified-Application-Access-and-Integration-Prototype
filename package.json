@@ -1,0 +1,33 @@
+{
+  "name": "dcsa-ual",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.11.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "migrate": "node packages/migrate/dist/cli.js up",
+    "arch:check": "echo 'architecture gates land in plan 01-06'"
+  },
+  "dependencies": {
+    "pg": "8.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@types/pg": "8.11.10",
+    "eslint": "9.17.0",
+    "prettier": "3.4.2",
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.18.2",
+    "vitest": "2.1.8"
+  }
+}
