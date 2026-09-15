@@ -2,16 +2,16 @@
 pivota_spec_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: ROADMAP.md and STATE.md written; REQUIREMENTS.md traceability populated
-last_updated: "2026-09-15T15:40:07.010Z"
-last_activity: 2026-09-15 — Roadmap created; all 20 v1 features (F0–F19) mapped to 8 phases
+status: executing
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-09-15T15:55:33.825Z"
+last_activity: "2026-09-15 — Plan 01-02 complete: 12 migrations (7 isolated schemas), grant matrix, isolation introspection suite"
 progress:
   total_phases: 8
   completed_phases: 0
   total_plans: 7
-  completed_plans: 1
-  percent: 14
+  completed_plans: 2
+  percent: 29
 ---
 
 # Project State
@@ -26,36 +26,37 @@ See: .planning/PROJECT.md (updated 2026-09-14)
 ## Current Position
 
 Phase: 1 of 8 (Separated Spokes and the Adapter Seam)
-Plan: 1 of 7 in current phase (complete)
+Plan: 2 of 7 in current phase (complete)
 Status: In progress
-Last activity: 2026-09-15 — Plan 01-01 complete: monorepo root, @ual/db, @ual/migrate, 000_bootstrap.sql, compose topology
+Last activity: 2026-09-15 — Plan 01-02 complete: 12 migrations laying 7 isolated schemas, grant matrix, isolation introspection suite (all 42 cross-schema reads denied 42501)
 
-Progress: [█░░░░░░░░░] 14%
+Progress: [███░░░░░░░] 29%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 1
-- Average duration: 8min
-- Total execution time: ~0.1 hours
+- Total plans completed: 2
+- Average duration: 11min
+- Total execution time: ~0.4 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01 | 1 | 7 | 8min |
+| 01 | 2 | 7 | 11min |
 
 **Recent Trend:**
 
-- Last 5 plans: 01-01 (8min, 3 tasks, 22 files)
-- Trend: —
+- Last 5 plans: 01-01 (8min, 3 tasks, 22 files), 01-02 (14min, 3 tasks, 15 files)
+- Trend: steady
 
 *Updated after each plan completion*
 
 | Plan | Duration | Tasks | Files |
 |------|----------|-------|-------|
 | Phase 01 P01 | 8min | 3 tasks | 22 files |
+| Phase 01 P02 | 14min | 3 tasks | 15 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,10 @@ Recent decisions affecting current work:
 - [01-01]: Migrations are immutable by sha256 checksum; a mutated applied file aborts the runner non-zero. Owner credential is used only by @ual/migrate, never by a service pool.
 - [01-01]: cvs schema + cvs_service role created in Phase 1 (service ships Phase 7) because the bootstrap grant matrix is one immutable, reviewable file.
 - [01-01]: Added @types/pg (pinned) to type the pg driver under TS strict — a blocking dependency, not scope creep (ADR-005 keeps hand-written SQL, no ORM).
+- [01-02]: Phase-1 hub subset only — sessions/audit/orchestration/notifications and application_registration_drafts deferred to Phase 2+, each omission stated in a header comment so it reads as deliberate.
+- [01-02]: hub.registered_applications ships 35 columns verbatim from TechArch §3.5; the plan's >=36 verify threshold was an off-by-one authoring error, verbatim fidelity is the real requirement (all 12 policy columns + CHECK bounds verified individually).
+- [01-02]: Isolation is a runnable proof, not prose — tests/integration/isolation.spec.ts denies all 42 cross-schema reads with 42501, asserts zero cross-schema FKs, and names any violator; hub holds no spoke USAGE.
+- [01-02]: DB-mutating integration suites serialised (vitest fileParallelism:false) and tests/tsconfig.json isolates the test tree from sibling plans' broken root project references — both minimal fixes touching no other plan's files.
 
 ### Pending Todos
 
@@ -86,5 +91,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-09-15
-Stopped at: Completed 01-01-PLAN.md
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None
