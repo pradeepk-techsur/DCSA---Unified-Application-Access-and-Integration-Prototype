@@ -53,7 +53,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 ### Phase 1: Separated Spokes and the Adapter Seam
 **Goal**: The five mission systems exist as genuinely separate, independently callable services over isolated data namespaces, populated with the synthetic corpus every later screen renders, and reachable only through one common adapter interface driven by a data-driven registry.
-**Status**: In progress
+**Status**: Failed
 **Depends on**: Nothing (first phase)
 **Requirements**: F8, F9, F17
 **Success Criteria** (what must be TRUE):
@@ -173,7 +173,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Separated Spokes and the Adapter Seam | 0/7 | In progress | - |
+| 1. Separated Spokes and the Adapter Seam | 0/7 | Failed | - |
 | 2. One Sign-In, One Enforcement Point | 0/TBD | Not started | - |
 | 3. The Accessible Unified Shell | 0/TBD | Not started | - |
 | 4. What Is Mine, and Acting On It | 0/TBD | Not started | - |
