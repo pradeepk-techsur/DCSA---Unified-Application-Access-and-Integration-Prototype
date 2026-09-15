@@ -12,7 +12,7 @@
 // healthCheck() BYPASSES this machine entirely in every state, so recovery is
 // always detectable (FR-F08a-05 rule 5).
 
-import type { AdapterError, AdapterContext, RegistryRecord } from '@ual/adapter-contract';
+import type { RegistryRecord } from '@ual/adapter-contract';
 
 export type CircuitState = 'CLOSED' | 'OPEN' | 'HALF_OPEN';
 
@@ -125,7 +125,7 @@ export class Circuit {
     this.persist();
   }
 
-  recordFailure(_err?: AdapterError): void {
+  recordFailure(): void {
     const from = this.snapshot.state;
     if (from === 'HALF_OPEN') {
       // A failed probe re-opens with the timer reset.

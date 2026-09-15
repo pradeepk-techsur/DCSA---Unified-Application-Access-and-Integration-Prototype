@@ -157,7 +157,7 @@ export async function invoke<Op extends AdapterOperation>(
       });
       return result as AdapterResult<Op>;
     } catch (err) {
-      const ae = classify(err, appId, operation, ctx, mutating);
+      const ae = classify(err, appId, operation, ctx);
 
       // 5. A mutating timeout becomes INDETERMINATE: outcome unknown, decision
       //    passes upward. Auto-retry here would risk double-applying.
@@ -166,7 +166,7 @@ export async function invoke<Op extends AdapterOperation>(
         ae.detail.retryable = false;
       }
 
-      circuit.recordFailure(ae);
+      circuit.recordFailure();
       // Not for NOT_FOUND / REJECTED — those are business outcomes, not failures.
       if (shouldRecordIssue(ae)) await issues.record(ae, ctx);
 

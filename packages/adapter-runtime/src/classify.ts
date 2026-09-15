@@ -37,7 +37,7 @@ const RETRYABLE: Record<AdapterErrorClass, boolean> = {
   ADAPTER_INTERNAL: false,
 };
 
-function classFor(err: ClassifiableError, mutating: boolean): AdapterErrorClass {
+function classFor(err: ClassifiableError): AdapterErrorClass {
   const name = err.name ?? '';
   const code = err.code ?? '';
   const status = err.httpStatusFromSpoke;
@@ -80,20 +80,19 @@ function classFor(err: ClassifiableError, mutating: boolean): AdapterErrorClass 
 
 /**
  * Classify a caught error into a typed AdapterError. An AdapterError caught here
- * is returned as-is (the adapter already knew its class). `mutating` is threaded
- * for callers; the timeout→INDETERMINATE rewrite for writes is invoke()'s job.
+ * is returned as-is (the adapter already knew its class). The timeout→
+ * INDETERMINATE rewrite for writes is invoke()'s job, not classify()'s.
  */
 export function classify(
   err: unknown,
   applicationId: string,
   operation: AdapterOperation,
   ctx: AdapterContext,
-  mutating: boolean,
 ): AdapterError {
   if (err instanceof AdapterError) return err;
 
   const ce = (err ?? {}) as ClassifiableError;
-  const cls = classFor(ce, mutating);
+  const cls = classFor(ce);
 
   return new AdapterError({
     class: cls,
