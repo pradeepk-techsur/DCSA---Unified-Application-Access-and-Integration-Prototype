@@ -1,0 +1,50 @@
+name: dcsa-ual
+
+# Node service anchor. Later plans (01-07) reuse this for ual-seed, the five
+# spoke services, and ual-hub. This phase ships only the two services it can
+# prove: ual-db and the ual-migrate job.
+x-node: &node
+  build: { context: ., dockerfile: Dockerfile, target: runtime }
+  restart: unless-stopped
+  environment: &env
+    NODE_ENV: production
+    UAL_SEED_CONSTANT:       ${UAL_SEED_CONSTANT}
+    UAL_SEED_REFERENCE_DATE: ${UAL_SEED_REFERENCE_DATE}
+    UAL_ASSERTION_KEY_SEED:  ${UAL_ASSERTION_KEY_SEED}
+
+services:
+  ual-db:
+    # Pinned by tag AND digest (TechArch §2.7) — the image an evaluator pulls is
+    # the image this was rehearsed against.
+    image: postgres:17.2-alpine@sha256:7e5df973a74872482e320dcbdeb055e178d6f42de0558b083892c50cda833c96
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports: ["${UAL_DB_PORT}:5432"]      # published so a reviewer can inspect grants in psql
+    volumes: ["ual-pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      retries: 20
+
+  ual-migrate:
+    <<: *node
+    command: ["node", "packages/migrate/dist/cli.js", "up"]
+    restart: "no"                       # a job, not a service
+    depends_on: { ual-db: { condition: service_healthy } }
+    environment:
+      <<: *env
+      PGHOST: ual-db
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      UAL_PW_HUB: ${UAL_PW_HUB}
+      UAL_PW_EAPP: ${UAL_PW_EAPP}
+      UAL_PW_PVQ: ${UAL_PW_PVQ}
+      UAL_PW_IEP: ${UAL_PW_IEP}
+      UAL_PW_PDT: ${UAL_PW_PDT}
+      UAL_PW_IM: ${UAL_PW_IM}
+      UAL_PW_CVS: ${UAL_PW_CVS}
+
+volumes: { ual-pgdata: {} }
