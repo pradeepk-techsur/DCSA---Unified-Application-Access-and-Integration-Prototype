@@ -130,35 +130,55 @@ Explicitly excluded. Documented to prevent scope creep.
 
 ## Traceability
 
-Populated during roadmap creation.
+Populated during roadmap creation. See `.planning/ROADMAP.md` for phase goals and success criteria.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| F0 | TBD | Pending |
-| F1 | TBD | Pending |
-| F2 | TBD | Pending |
-| F3 | TBD | Pending |
-| F4 | TBD | Pending |
-| F5 | TBD | Pending |
-| F6 | TBD | Pending |
-| F7 | TBD | Pending |
-| F8 | TBD | Pending |
-| F9 | TBD | Pending |
-| F10 | TBD | Pending |
-| F11 | TBD | Pending |
-| F12 | TBD | Pending |
-| F13 | TBD | Pending |
-| F14 | TBD | Pending |
-| F15 | TBD | Pending |
-| F16 | TBD | Pending |
-| F17 | TBD | Pending |
-| F18 | TBD | Pending |
-| F19 | TBD | Pending |
+| F0 | Phase 2 | Pending |
+| F1 | Phase 2 | Pending |
+| F2 | Phase 2 | Pending |
+| F3 | Phase 3 | Pending |
+| F4 | Phase 4 | Pending |
+| F5 | Phase 4 | Pending |
+| F6 | Phase 4 | Pending |
+| F7 | Phase 5 | Pending |
+| F8 | Phase 1 | Pending |
+| F9 | Phase 1 | Pending |
+| F10 | Phase 2 | Pending |
+| F11 | Phase 6 | Pending |
+| F12 | Phase 7 | Pending |
+| F13 | Phase 2 | Pending |
+| F14 | Phase 3 | Pending |
+| F15 | Phase 4 | Pending |
+| F16 | Phase 6 | Pending |
+| F17 | Phase 1 | Pending |
+| F18 | Phase 8 | Pending |
+| F19 | Phase 8 | Pending |
+
+**Phase groupings:**
+
+| Phase | Name | Requirements |
+|-------|------|--------------|
+| 1 | Separated Spokes and the Adapter Seam | F8, F9, F17 |
+| 2 | One Sign-In, One Enforcement Point | F0, F1, F2, F10, F13 |
+| 3 | The Accessible Unified Shell | F3, F14 |
+| 4 | What Is Mine, and Acting On It | F4, F5, F6, F15 |
+| 5 | The Flagship Cross-Application Workflow | F7 |
+| 6 | Operating the Platform | F11, F16 |
+| 7 | Onboarding the Next Application as Configuration | F12 |
+| 8 | Demonstrable, Verified, Rehearsed | F18, F19 |
 
 **Coverage:**
 - v1 requirements: 20 features + 20 NFRs
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 20 ⚠️
+- Features mapped to phases: 20 / 20 ✓ (each to exactly one phase; no orphans, no duplicates)
+- Unmapped: 0
+- NFRs: cross-cutting, not separately phased — each carried as a success criterion in the phase that first makes it observable and re-verified by the Phase 8 suite (mapping in ROADMAP.md § Requirement Coverage)
+
+**Features completing in more than one phase (owner phase in the table above, declared in ROADMAP.md phase details):**
+- **F17** — corpus owned by Phase 1; extended in Phase 4 (persona/facet breadth), Phase 6 (degraded and blocked-action edge states), Phase 7 (CVS corpus)
+- **F4** — three mission dashboards in Phase 4; the administrator dashboard's operational widgets complete in Phase 6, when the console and health monitor exist to populate them
+- **F15** — alert derivation, rendering, and per-user dismissal in Phase 4; administrator announcement authoring with the console in Phase 6
+- **F14** — accessibility foundation and CI gate in Phase 3; the every-route × every-role sweep and manual pass in Phase 8 under F19
 
 ---
 
@@ -176,4 +196,4 @@ Populated during roadmap creation.
 
 ---
 *Requirements defined: 2026-09-15*
-*Last updated: 2026-09-15 after initial definition*
+*Last updated: 2026-09-15 after roadmap creation (traceability populated, 20/20 features mapped)*
