@@ -1,19 +1,12 @@
-# Deferred / Out-of-Scope Items — Phase 01
+# Deferred Items — Phase 01
 
-Discoveries logged during plan execution that are outside the current plan's
-scope. Not fixed here per the execute-plan SCOPE BOUNDARY rule.
+Out-of-scope discoveries logged during execution. NOT fixed by the discovering
+plan (see execute-plan.md SCOPE_BOUNDARY).
 
-## From plan 01-02 (schemas + isolation suite)
+## From plan 01-03
 
-- **Root `npm run build` (`tsc -b`) fails on parallel-plan packages.** The root
-  `tsconfig.json` (edited by plan 01-03) references `packages/adapter-runtime`
-  and `packages/adapter-rest-json-v1`. At the time 01-02 ran:
-  - `packages/adapter-runtime/src/log.ts` imports `pino`, which is not yet a
-    declared dependency → `TS2307: Cannot find module 'pino'`.
-  - `packages/adapter-rest-json-v1/tsconfig.json` does not exist →
-    `TS5083: Cannot read file`.
-  These are incomplete work-in-progress from the concurrently-running plan 01-03
-  and are expected to resolve when that plan completes. Plan 01-02's own packages
-  (`@ual/db`, `@ual/migrate`) build cleanly in isolation
-  (`npx tsc -b packages/db packages/migrate` → exit 0), which is what 01-02's
-  verification relies on. No action taken by 01-02.
+- **`tests/integration/isolation.spec.ts:275` — unused eslint-disable directive**
+  (warning, not error). This file belongs to plan 01-01's isolation harness and
+  is currently untracked in the working tree; it is not touched by plan 01-03.
+  `npm run lint` exits 0 (warnings do not fail the gate). Left for the owning
+  plan to clean up.
