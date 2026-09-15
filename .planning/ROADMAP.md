@@ -63,7 +63,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. Seeding is deterministic and idempotent: two runs produce identical data, the documented reset command returns `ISS-2207` to `OPEN`, and startup **fails loudly and specifically** when a persona binding is missing or double-bound — so a broken corpus is diagnosed at start-up rather than discovered in front of a reviewer.
 **Journeys demonstrable at end of phase**: None end-to-end (no UI yet). JRN-01.01's data preconditions and JRN-04.01's separation claim (US-076, US-077) are verifiable by direct spoke API calls.
 **Scope note**: F17 is *owned* here and extended in later phases as their surfaces arrive — Phase 4 adds breadth for PER-02/03/04 and every filter facet, Phase 6 adds the degraded-spoke and blocked-action edge states, Phase 7 adds the CVS corpus. The seeding mechanism, validator, and reset command all land here so no later phase is ever built against an empty namespace.
-**Plans**: TBD
+**Plans**: 7 plans in 5 waves
+- [ ] 01-01-PLAN.md — Repository foundation: npm workspaces, pinned toolchain, @ual/db + @ual/migrate, `000_bootstrap.sql` (7 schemas / 7 roles / grant matrix), Dockerfile, compose db+migrate *(wave 1)*
+- [ ] 01-02-PLAN.md — Isolated schemas: hub identity/policy/registry/health DDL, six spoke namespaces, shared operational tables, final grants, and the automated isolation introspection proof *(wave 2)*
+- [ ] 01-03-PLAN.md — The adapter seam: `@ual/adapter-contract` verbatim, Ed25519 audience-bound assertions, `@ual/adapter-runtime` (deadline/retry/backoff/circuit/taxonomy), `@ual/adapter-rest-json-v1` *(wave 2)*
+- [ ] 01-04-PLAN.md — `@ual/spoke-kit` plus five spoke services (eApp :7101, PVQ :7102, IEP :7103, PDT :7104, IM :7105) with integration tests *(wave 3)*
+- [ ] 01-05-PLAN.md — Deterministic synthetic corpus, the five registry rows, the startup validator that fails loudly, and the documented reset *(wave 3)*
+- [ ] 01-06-PLAN.md — Registry service, adapter factory, scoped spoke-query wrapper, registry-driven fan-out, minimal hub process, and the no-hard-coded-list CI gates *(wave 4)*
+- [ ] 01-07-PLAN.md — Adapter conformance suite, the nine-container stack, `run.sh`, the direct-spoke proof script, and the README *(wave 5)*
 
 ### Phase 2: One Sign-In, One Enforcement Point
 **Goal**: A user authenticates once through a simulated identity provider and every subsequent request — read or write — passes a single server-side choke point that resolves the principal, authorizes at the resource level, and writes an immutable audit record before any success is returned.
@@ -165,7 +172,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Separated Spokes and the Adapter Seam | 0/TBD | Not started | - |
+| 1. Separated Spokes and the Adapter Seam | 0/7 | Planned | - |
 | 2. One Sign-In, One Enforcement Point | 0/TBD | Not started | - |
 | 3. The Accessible Unified Shell | 0/TBD | Not started | - |
 | 4. What Is Mine, and Acting On It | 0/TBD | Not started | - |
