@@ -1,4 +1,11 @@
 {
   "files": [],
-  "references": [{ "path": "packages/db" }, { "path": "packages/migrate" }]
+  "references": [
+    { "path": "packages/db" },
+    { "path": "packages/migrate" },
+    { "path": "packages/adapter-contract" },
+    { "path": "packages/assertions" },
+    { "path": "packages/adapter-runtime" },
+    { "path": "packages/adapter-rest-json-v1" }
+  ]
 }
