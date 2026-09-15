@@ -1,3 +1,19 @@
+---
+pivota_spec_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: planning
+stopped_at: ROADMAP.md and STATE.md written; REQUIREMENTS.md traceability populated
+last_updated: "2026-09-15T15:40:07.010Z"
+last_activity: 2026-09-15 — Roadmap created; all 20 v1 features (F0–F19) mapped to 8 phases
+progress:
+  total_phases: 8
+  completed_phases: 0
+  total_plans: 7
+  completed_plans: 1
+  percent: 14
+---
+
 # Project State
 
 ## Project Reference
@@ -10,30 +26,36 @@ See: .planning/PROJECT.md (updated 2026-09-14)
 ## Current Position
 
 Phase: 1 of 8 (Separated Spokes and the Adapter Seam)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-09-15 — Roadmap created; all 20 v1 features (F0–F19) mapped to 8 phases
+Plan: 1 of 7 in current phase (complete)
+Status: In progress
+Last activity: 2026-09-15 — Plan 01-01 complete: monorepo root, @ual/db, @ual/migrate, 000_bootstrap.sql, compose topology
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 14%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: 0 hours
+
+- Total plans completed: 1
+- Average duration: 8min
+- Total execution time: ~0.1 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 01 | 1 | 7 | 8min |
 
 **Recent Trend:**
-- Last 5 plans: —
+
+- Last 5 plans: 01-01 (8min, 3 tasks, 22 files)
 - Trend: —
 
 *Updated after each plan completion*
+
+| Plan | Duration | Tasks | Files |
+|------|----------|-------|-------|
+| Phase 01 P01 | 8min | 3 tasks | 22 files |
 
 ## Accumulated Context
 
@@ -46,6 +68,10 @@ Recent decisions affecting current work:
 - [Roadmap]: Operability (Phase 6, F11/F16) precedes extensibility (Phase 7, F12), per the STORY-MAP's internal ordering gate — a truncated build still leaves an operable platform, and a registered application is never invisible to monitoring.
 - [Roadmap]: F17 seed corpus is owned by Phase 1 and extended by Phases 4, 6, 7 as their surfaces arrive — no screen is ever built against an empty namespace.
 - [Roadmap]: F14 accessibility is a Phase 3 foundation with a CI axe gate running from that phase forward; F19's complete suite in Phase 8 is a sweep, not a discovery.
+- [01-01]: Isolation is exercised, not asserted — @ual/db pins each pool's search_path to one schema; verified 7 own-schema USAGE grants and 0 cross-schema grants after bootstrap.
+- [01-01]: Migrations are immutable by sha256 checksum; a mutated applied file aborts the runner non-zero. Owner credential is used only by @ual/migrate, never by a service pool.
+- [01-01]: cvs schema + cvs_service role created in Phase 1 (service ships Phase 7) because the bootstrap grant matrix is one immutable, reviewable file.
+- [01-01]: Added @types/pg (pinned) to type the pg driver under TS strict — a blocking dependency, not scope creep (ADR-005 keeps hand-written SQL, no ORM).
 
 ### Pending Todos
 
@@ -60,5 +86,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-09-15
-Stopped at: ROADMAP.md and STATE.md written; REQUIREMENTS.md traceability populated
+Stopped at: Completed 01-01-PLAN.md
 Resume file: None
